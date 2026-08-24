@@ -40,8 +40,8 @@ Designed and deployed a self-hosted SIEM environment using **Wazuh** on Ubuntu S
 | :--- | :--- |
 | **Incident Title** | Authentication Anomaly — Windows Failed Logon |
 | **Target Host** | `Win11-Endpoint` (`192.168.56.111`) |
-| **Alert ID & Severity** | Rule 60122 (Level 5) | Windows Event ID 4625 |
-| **Target User & Vector** | User: socuser | Logon Type: 2 (Interactive / Local Console) |
+| **Alert ID & Severity** | Rule 60122 (Level 5) , Windows Event ID 4625 |
+| **Target User & Vector** | User: socuser , Logon Type: 2 (Interactive / Local Console) |
 | **MITRE ATT&CK** | T1078 - Valid Accounts / T1110 - Brute Force |
 | **Triage Notes** | Single isolated failed logon. Inspected raw telemetry payload (subStatus: 0xc000006a); confirmed valid username with incorrect password entry. No brute-force cluster or follow-up process execution (Event ID 4688) observed. |
 | **Verdict** | **False Positive (Benign User Typo)** — Closed ticket; no host containment required. |
