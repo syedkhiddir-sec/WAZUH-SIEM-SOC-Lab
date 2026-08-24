@@ -45,3 +45,37 @@ Designed and deployed a self-hosted SIEM environment using **Wazuh** on Ubuntu S
 | **MITRE ATT&CK** | T1078 - Valid Accounts / T1110 - Brute Force |
 | **Triage Notes** | Single isolated failed logon. Inspected raw telemetry payload (subStatus: 0xc000006a); confirmed valid username with incorrect password entry. No brute-force cluster or follow-up process execution (Event ID 4688) observed. |
 | **Verdict** | **False Positive (Benign User Typo)** — Closed ticket; no host containment required. |
+
+---
+
+### 🚨 Scenario 2: High-Velocity Brute-Force Detection & Correlation
+
+#### 1. Threat Overview & Objective
+* **Objective:** Validate SIEM frequency correlation rules against automated, multi-account password-guessing attacks.
+* **Simulated Attack:** Executed a high-velocity PowerShell script generating 15 sequential authentication failures across dynamically generated account names (`testuser1` through `testuser15`).
+* **MITRE ATT&CK Mapping:** Credential Access — [T1110.001 (Password Guessing)](https://attack.mitre.org/techniques/T1110/001/)
+
+#### 2. Visual Detection Evidence
+![Brute Force Correlation Dashboard](screenshots/scenario2_dashboard.png)
+*Figure 2.1: Wazuh SIEM escalating isolated logon failures to Rule 60204 (Level 10).*
+
+![Expanded Telemetry](screenshots/scenario2_json.png)
+*Figure 2.2: Raw JSON payload displaying NTLM network authentication failure details.*
+
+#### 3. Key Telemetry Extracted
+* **Correlated Rule:** `60204` (Level 10 — *Multiple Windows logon failures*)
+* **Event ID:** `4625`
+* **Logon Type:** `3` (Network Authentication / SMB)
+* **Authentication Provider:** `NtLmSsp`
+* **SubStatus Code:** `0xc0000064` (*Unknown Username / Account Does Not Exist*)
+* **Target Sample:** `testuser8`
+
+#### 4. Incident Summary Table
+
+| Field | Details |
+| :--- | :--- |
+| **Incident Title** | High-Velocity Brute-Force / Credential Spray Attack |
+| **Target Host** | `Win11-Endpoint` (`192.168.56.111`) |
+| **Alert ID & Severity** | Rule `60204` — Level 10 |
+| **Triage Notes** | Observed rapid succession of Event ID `4625` entries with `LogonType: 3` and `SubStatus: 0xc0000064`. Account names iterated sequentially, confirming automated dictionary/guessing attempt. |
+| **Verdict** | **True Positive (Simulated Attack)** — High-severity alert validated; host flagged for automated active response containment. |
