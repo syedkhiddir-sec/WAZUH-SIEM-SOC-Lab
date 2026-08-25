@@ -18,6 +18,9 @@ Designed and deployed a self-hosted SIEM environment using **Wazuh** on Ubuntu S
 |   (Adversary / Host)  | -----------> |   (Target Endpoint)   | -----------> |  (Wazuh SIEM / SOC)   |
 |     192.168.56.X      |   Attacks    |    192.168.56.111     |  Telemetry   |    192.168.56.110     |
 +-----------------------+              +-----------------------+              +-----------------------+
+
+```
+
 ---
 
 ### Scenario 1: Authentication Failure (Logon Anomaly)
