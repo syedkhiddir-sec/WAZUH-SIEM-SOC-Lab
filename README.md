@@ -9,14 +9,14 @@ Designed and deployed a self-hosted SIEM environment using **Wazuh** on Ubuntu S
 
 * **SIEM Server (Manager & Dashboard):** Ubuntu Server (`192.168.56.110`)
 * **Target Endpoint:** Windows 11 (`192.168.56.111`) — *Wazuh Agent 001*
-* **Attacker Host:** Kali Linux (`192.168.56.X`)
+* **Attacker Host:** Kali Linux (`192.168.56.102`)
 * **Hypervisor:** Oracle VirtualBox (Host-Only Network `192.168.56.0/24`)
 
 ```text
 +-----------------------+              +-----------------------+              +-----------------------+
 |      Kali Linux       |              |      Windows 11       |              |     Ubuntu Server     |
 |   (Adversary / Host)  | -----------> |   (Target Endpoint)   | -----------> |  (Wazuh SIEM / SOC)   |
-|     192.168.56.X      |   Attacks    |    192.168.56.111     |  Telemetry   |    192.168.56.110     |
+|     192.168.56.102    |   Attacks    |    192.168.56.111     |  Telemetry   |    192.168.56.110     |
 +-----------------------+              +-----------------------+              +-----------------------+
 
 ```
